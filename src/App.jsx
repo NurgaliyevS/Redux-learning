@@ -1,16 +1,19 @@
+// @ts-ignore
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {addCustomerAction, removeCustomerAction} from './store/customReducer'
-import {addCashAction, getCashAction} from './store/cashReducer';
+import { addCashAction, getCashAction} from './store/cashReducer';
+import { fetchCustomers } from "./asyncActions/customers";
 
 function App() {
   const dispatch = useDispatch();
+  // @ts-ignore
   const cash = useSelector((state) => state.cash.cash);
+  // @ts-ignore
   const customers = useSelector((state) => state.customers.customers);
 
   const addCash = (cash) => {
-    // dispatch({ type: "ADD_CASH", payload: cash });
     dispatch(addCashAction(cash))
   };
 
@@ -55,6 +58,13 @@ function App() {
           }}
         >
           Add client
+        </button>
+        <button
+          onClick={() => {
+            dispatch(fetchCustomers());
+          }}
+        >
+         Get client from database 
         </button>
       </div>
       {customers.length > 0 ?  (
